@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光动力治疗计算器</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+            </div>
+            <h1>光动力治疗计算器</h1>
+            <p class="subtitle">Photodynamic Therapy Calculator</p>
+        </header>
+
+        <div class="card">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="power">功率计算</button>
+                <button class="tab-btn" data-tab="energy">能量密度计算</button>
+                <button class="tab-btn" data-tab="radius">半径预测</button>
+            </div>
+
+            <!-- 功率计算 -->
+            <div class="tab-content active" id="power-tab">
+                <div class="form-group">
+                    <label for="ed-power">能量密度</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="ed-power" value="100" min="0" step="any">
+                        <span class="unit">J/cm²</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lg-power">光纤长度</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="lg-power" value="3" min="0" step="any">
+                        <span class="unit">cm</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="time-power">照射时间</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="time-power" value="1200" min="0" step="any">
+                        <span class="unit">秒</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="r-power">半径</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="r-power" value="0.5" min="0" step="any">
+                        <span class="unit">cm</span>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculatePower()">计算功率</button>
+
+                <div class="result" id="power-result">
+                    <div class="result-label">输出功率</div>
+                    <div class="result-value">
+                        <span id="power-value">0</span>
+                        <span class="result-unit">mW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 能量密度计算 -->
+            <div class="tab-content" id="energy-tab">
+                <div class="form-group">
+                    <label for="op-energy">输出功率</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="op-energy" value="500" min="0" step="any">
+                        <span class="unit">mW</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lg-energy">光纤长度</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="lg-energy" value="3" min="0" step="any">
+                        <span class="unit">cm</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="time-energy">照射时间</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="time-energy" value="1200" min="0" step="any">
+                        <span class="unit">秒</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="r-energy">半径</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="r-energy" value="0.5" min="0" step="any">
+                        <span class="unit">cm</span>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateEnergy()">计算能量密度</button>
+
+                <div class="result" id="energy-result">
+                    <div class="result-label">能量密度</div>
+                    <div class="result-value">
+                        <span id="energy-value">0</span>
+                        <span class="result-unit">J/cm²</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 半径预测 -->
+            <div class="tab-content" id="radius-tab">
+                <div class="form-group">
+                    <label for="age-radius">儿童年龄</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="age-radius" value="60" min="0" step="any">
+                        <span class="unit">月</span>
+                    </div>
+                </div>
+
+                <p class="hint">基于51例儿童数据的线性回归模型 (r=0.78)<br>适用年龄范围：3 - 164 月龄</p>
+
+                <button class="calculate-btn" onclick="calculateRadius()">预测半径</button>
+
+                <div class="result" id="radius-result">
+                    <div class="result-label">预测照射半径 (AP)</div>
+                    <div class="result-value">
+                        <span id="radius-value">0</span>
+                        <span class="result-unit">cm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="hospital">南京医科大学附属明基医院</p>
+            <p>耳鼻咽喉头颈外科内部使用</p>
+            <p>邮箱：<a href="mailto:entpyf@163.com">entpyf@163.com</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
