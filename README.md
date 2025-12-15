@@ -12,7 +12,7 @@ Photodynamic Therapy Calculator
 
 ## 访问地址
 
-https://entpyf.github.io
+<https://entpyf.github.io>
 
 ## 作者
 
@@ -21,7 +21,7 @@ https://entpyf.github.io
 南京医科大学附属明基医院  
 耳鼻咽喉头颈外科
 
-📧 entpyf@163.com
+📧 <entpyf@163.com>
 
 ## 许可
 
