@@ -72,11 +72,20 @@
 
                 <button class="calculate-btn" onclick="calculatePower()">计算功率</button>
 
-                <div class="result" id="power-result">
-                    <div class="result-label">输出功率</div>
-                    <div class="result-value">
-                        <span id="power-value">0</span>
-                        <span class="result-unit">mW</span>
+                <div class="result result-dual" id="power-result">
+                    <div class="result-item">
+                        <div class="result-label">输出功率</div>
+                        <div class="result-value">
+                            <span id="power-value">0</span>
+                            <span class="result-unit">mW</span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">功率密度</div>
+                        <div class="result-value">
+                            <span id="power-density-value">0</span>
+                            <span class="result-unit">mW/cm²</span>
+                        </div>
                     </div>
                 </div>
             </div>

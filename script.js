@@ -43,8 +43,20 @@ function calculatePower() {
         return;
     }
 
+    if (Lg === 0 || R === 0) {
+        alert('光纤长度和半径不能为 0');
+        return;
+    }
+
     const OP = fastpower(Ed, Lg, Time, R);
+    
+    // 功率密度 = 输出功率 / 照射面积
+    // 照射面积 = 2 * π * R * Lg (圆柱表面积)
+    const area = 2 * Math.PI * R * Lg;
+    const powerDensity = OP / area;
+
     document.getElementById('power-value').textContent = OP.toFixed(2);
+    document.getElementById('power-density-value').textContent = powerDensity.toFixed(2);
     document.getElementById('power-result').classList.add('show');
 }
 

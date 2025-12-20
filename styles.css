@@ -182,6 +182,7 @@ h1 {
         opacity: 0;
         transform: translateY(4px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -304,6 +305,7 @@ input[type="number"] {
         opacity: 0;
         transform: scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -326,6 +328,29 @@ input[type="number"] {
     color: var(--text-secondary);
     font-weight: 400;
     margin-left: 0.125rem;
+}
+
+/* Dual result display */
+.result-dual.show {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.result-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.result-item .result-value {
+    font-size: 1.25rem;
+}
+
+.result-item .result-unit {
+    font-size: 0.75rem;
 }
 
 /* Footer */
@@ -458,5 +483,13 @@ footer a:hover {
         font-size: 0.75rem;
         padding: 0.625rem 0.875rem;
         margin-bottom: 1rem;
+    }
+
+    .result-item .result-value {
+        font-size: 1.5rem;
+    }
+
+    .result-item .result-unit {
+        font-size: 0.8rem;
     }
 }
