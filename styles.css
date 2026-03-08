@@ -353,35 +353,6 @@ input[type="number"] {
     font-size: 0.75rem;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 0.75rem 0;
-    color: var(--text-secondary);
-    font-size: 0.7rem;
-    flex-shrink: 0;
-}
-
-footer p {
-    margin-bottom: 0.125rem;
-}
-
-footer a {
-    color: var(--primary-light);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: var(--accent);
-}
-
-.hospital {
-    font-weight: 500;
-    color: var(--text-primary);
-    opacity: 0.8;
-}
-
 .hint {
     font-size: 0.7rem;
     color: var(--text-secondary);
@@ -472,11 +443,6 @@ footer a:hover {
 
     .result-value {
         font-size: 1.75rem;
-    }
-
-    footer {
-        padding: 1rem 0;
-        font-size: 0.8rem;
     }
 
     .hint {
