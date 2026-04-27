@@ -20,21 +20,189 @@ const AGE_RANGE = {
     max: 164
 };
 
+// ── i18n 文案字典 ──────────────────────────────────────────────
+
+const I18N = {
+    zh: {
+        title: '光动力治疗计算器',
+        subtitle: 'Photodynamic Therapy Calculator',
+        tabPower: '功率计算',
+        tabEnergy: '能量密度',
+        tabRadius: '儿童半径预测',
+        tablistLabel: 'PDT 计算功能',
+        labelEnergyDensity: '能量密度',
+        labelFiberLength: '光纤长度',
+        labelExposureTime: '照射时间',
+        labelRadius: '半径',
+        labelChildAge: '儿童年龄（月龄）',
+        unitSeconds: '秒',
+        unitMonths: '月',
+        btnCalcPower: '计算功率',
+        btnCalcEnergy: '计算能量密度',
+        btnPredictRadius: '预测半径',
+        resultOutputPower: '输出功率',
+        resultPowerDensity: '功率密度',
+        resultPredictedRadius: '预测照射半径',
+        hintAgeRange: '儿童年龄模型适用范围为 3-164 月龄；超出范围时仍可计算，但结果仅供参考。',
+        msgPowerResult: '已根据当前输入计算输出功率与功率密度。',
+        msgEnergyResult: '已根据当前输入计算能量密度。',
+        msgRadiusResult: '结果为预测照射半径，单位为 cm。',
+        msgRadiusWarning: `当前年龄超出 ${AGE_RANGE.min}-${AGE_RANGE.max} 月龄模型范围，结果属于模型外推，仅供参考。`,
+        msgValidationError: '请修正标红字段后重新计算。',
+        errEmpty: (label) => `请输入${label}`,
+        errNotNumber: (label) => `${label}必须为数字`,
+        errPositive: (label) => `${label}必须大于 0`,
+        errNonNegative: (label) => `${label}不能为负数`,
+        footerAuthor: '作者：Yufei Pan',
+        footerAffiliation: '南京医科大学附属明基医院 · 耳鼻咽喉头颈外科',
+        footerEmail: '邮箱：<a href="mailto:entpyf@163.com">entpyf@163.com</a>',
+        langHint: '切换语言',
+        langToggleText: 'EN',
+        langToggleAriaLabel: 'Switch to English',
+        pageTitle: '光动力治疗计算器',
+        fieldLabels: {
+            'ed-power': '能量密度',
+            'lg-power': '光纤长度',
+            'time-power': '照射时间',
+            'r-power': '半径',
+            'op-energy': '输出功率',
+            'lg-energy': '光纤长度',
+            'time-energy': '照射时间',
+            'r-energy': '半径',
+            'age-radius': '儿童年龄'
+        }
+    },
+    en: {
+        title: 'PDT Calculator',
+        subtitle: 'Photodynamic Therapy Calculator',
+        tabPower: 'Power',
+        tabEnergy: 'Energy Density',
+        tabRadius: 'Pediatric Radius',
+        tablistLabel: 'PDT Calculator Functions',
+        labelEnergyDensity: 'Energy Density',
+        labelFiberLength: 'Fiber Length',
+        labelExposureTime: 'Exposure Time',
+        labelRadius: 'Radius',
+        labelChildAge: 'Child Age (Months)',
+        unitSeconds: 's',
+        unitMonths: 'mo',
+        btnCalcPower: 'Calculate Power',
+        btnCalcEnergy: 'Calculate Energy Density',
+        btnPredictRadius: 'Predict Radius',
+        resultOutputPower: 'Output Power',
+        resultPowerDensity: 'Power Density',
+        resultPredictedRadius: 'Predicted Irradiation Radius',
+        hintAgeRange: 'Model applicable for ages 3–164 months; results outside this range are extrapolated and for reference only.',
+        msgPowerResult: 'Output power and power density calculated from the current inputs.',
+        msgEnergyResult: 'Energy density calculated from the current inputs.',
+        msgRadiusResult: 'Predicted irradiation radius in cm.',
+        msgRadiusWarning: `Age is outside the ${AGE_RANGE.min}–${AGE_RANGE.max} month model range; result is extrapolated and for reference only.`,
+        msgValidationError: 'Please correct the highlighted fields and try again.',
+        errEmpty: (label) => `Please enter ${label}`,
+        errNotNumber: (label) => `${label} must be a number`,
+        errPositive: (label) => `${label} must be greater than 0`,
+        errNonNegative: (label) => `${label} cannot be negative`,
+        footerAuthor: 'Author: Yufei Pan',
+        footerAffiliation: 'BenQ Medical Center, Nanjing Medical University · Dept. of Otolaryngology-HNS',
+        footerEmail: 'Email: <a href="mailto:entpyf@163.com">entpyf@163.com</a>',
+        langHint: 'Switch Language',
+        langToggleText: '中文',
+        langToggleAriaLabel: '切换为中文',
+        pageTitle: 'PDT Calculator',
+        fieldLabels: {
+            'ed-power': 'Energy Density',
+            'lg-power': 'Fiber Length',
+            'time-power': 'Exposure Time',
+            'r-power': 'Radius',
+            'op-energy': 'Output Power',
+            'lg-energy': 'Fiber Length',
+            'time-energy': 'Exposure Time',
+            'r-energy': 'Radius',
+            'age-radius': 'Child Age'
+        }
+    }
+};
+
+let currentLang = 'zh';
+
+function t(key) {
+    return I18N[currentLang][key];
+}
+
+function fieldLabel(inputId) {
+    return I18N[currentLang].fieldLabels[inputId];
+}
+
+// 翻译所有带 data-i18n 属性的静态元素
+function translatePage() {
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.dataset.i18n;
+        const text = I18N[currentLang][key];
+        if (text === undefined) return;
+
+        if (key === 'footerEmail') {
+            el.innerHTML = text;
+        } else {
+            el.textContent = text;
+        }
+    });
+
+    document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+    document.title = t('pageTitle');
+
+    const tablist = document.querySelector('[data-i18n-aria="tablistLabel"]');
+    if (tablist) {
+        tablist.setAttribute('aria-label', t('tablistLabel'));
+    }
+
+    const toggleBtn = document.getElementById('lang-toggle');
+    toggleBtn.textContent = t('langToggleText');
+    toggleBtn.setAttribute('aria-label', t('langToggleAriaLabel'));
+
+    // 如果结果区已经显示，更新结果文案
+    refreshVisibleResults();
+}
+
+// 如果某个结果面板已经展示，更新其状态消息
+function refreshVisibleResults() {
+    ['power', 'energy', 'radius'].forEach((key) => {
+        const { container } = getResultElements(key);
+        if (container.hidden) return;
+
+        const state = container.dataset.state;
+        if (state === 'error') {
+            setResultState(key, 'error', t('msgValidationError'));
+        } else if (key === 'power') {
+            setResultState(key, 'normal', t('msgPowerResult'));
+        } else if (key === 'energy') {
+            setResultState(key, 'normal', t('msgEnergyResult'));
+        } else if (key === 'radius') {
+            if (state === 'warning') {
+                setResultState(key, 'warning', t('msgRadiusWarning'));
+            } else {
+                setResultState(key, 'normal', t('msgRadiusResult'));
+            }
+        }
+    });
+}
+
+// ── VALIDATION_RULES 保持结构不变，label 改为运行时读取 ──
+
 const VALIDATION_RULES = {
     power: [
-        { id: 'ed-power', key: 'energyDensity', label: '能量密度', mode: 'positive' },
-        { id: 'lg-power', key: 'fiberLength', label: '光纤长度', mode: 'positive' },
-        { id: 'time-power', key: 'exposureTime', label: '照射时间', mode: 'positive' },
-        { id: 'r-power', key: 'radius', label: '半径', mode: 'positive' }
+        { id: 'ed-power', key: 'energyDensity', mode: 'positive' },
+        { id: 'lg-power', key: 'fiberLength', mode: 'positive' },
+        { id: 'time-power', key: 'exposureTime', mode: 'positive' },
+        { id: 'r-power', key: 'radius', mode: 'positive' }
     ],
     energy: [
-        { id: 'op-energy', key: 'outputPower', label: '输出功率', mode: 'positive' },
-        { id: 'lg-energy', key: 'fiberLength', label: '光纤长度', mode: 'positive' },
-        { id: 'time-energy', key: 'exposureTime', label: '照射时间', mode: 'positive' },
-        { id: 'r-energy', key: 'radius', label: '半径', mode: 'positive' }
+        { id: 'op-energy', key: 'outputPower', mode: 'positive' },
+        { id: 'lg-energy', key: 'fiberLength', mode: 'positive' },
+        { id: 'time-energy', key: 'exposureTime', mode: 'positive' },
+        { id: 'r-energy', key: 'radius', mode: 'positive' }
     ],
     radius: [
-        { id: 'age-radius', key: 'age', label: '儿童年龄', mode: 'nonNegative' }
+        { id: 'age-radius', key: 'age', mode: 'nonNegative' }
     ]
 };
 
@@ -95,23 +263,24 @@ function setFieldError(inputId, errorMessage) {
 function validateNumericField(fieldConfig) {
     const input = getInput(fieldConfig.id);
     const rawValue = input.value.trim();
+    const label = fieldLabel(fieldConfig.id);
 
     if (rawValue === '') {
-        return { error: `请输入${fieldConfig.label}` };
+        return { error: t('errEmpty')(label) };
     }
 
     const value = Number(rawValue);
 
     if (!Number.isFinite(value)) {
-        return { error: `${fieldConfig.label}必须为数字` };
+        return { error: t('errNotNumber')(label) };
     }
 
     if (fieldConfig.mode === 'positive' && value <= 0) {
-        return { error: `${fieldConfig.label}必须大于 0` };
+        return { error: t('errPositive')(label) };
     }
 
     if (fieldConfig.mode === 'nonNegative' && value < 0) {
-        return { error: `${fieldConfig.label}不能为负数` };
+        return { error: t('errNonNegative')(label) };
     }
 
     return { value };
@@ -218,7 +387,7 @@ function runPowerCalculator(values) {
     document.getElementById('power-value').textContent = outputPower.toFixed(2);
     document.getElementById('power-density-value').textContent = powerDensity.toFixed(2);
 
-    setResultState('power', 'normal', '已根据当前输入计算输出功率与功率密度。');
+    setResultState('power', 'normal', t('msgPowerResult'));
     revealResult('power');
 }
 
@@ -232,7 +401,7 @@ function runEnergyCalculator(values) {
 
     document.getElementById('energy-value').textContent = energyDensity.toFixed(2);
 
-    setResultState('energy', 'normal', '已根据当前输入计算能量密度。');
+    setResultState('energy', 'normal', t('msgEnergyResult'));
     revealResult('energy');
 }
 
@@ -244,13 +413,9 @@ function runRadiusCalculator(values) {
     document.getElementById('radius-value').textContent = predictedRadius.toFixed(2);
 
     if (outOfRange) {
-        setResultState(
-            'radius',
-            'warning',
-            `当前年龄超出 ${AGE_RANGE.min}-${AGE_RANGE.max} 月龄模型范围，结果属于模型外推，仅供参考。`
-        );
+        setResultState('radius', 'warning', t('msgRadiusWarning'));
     } else {
-        setResultState('radius', 'normal', '结果为预测照射半径，单位为 cm。');
+        setResultState('radius', 'normal', t('msgRadiusResult'));
     }
 
     revealResult('radius');
@@ -260,7 +425,7 @@ function runCalculator(calculatorKey) {
     const validationResult = validateFields(calculatorKey);
 
     if (validationResult.firstInvalidInput) {
-        setResultState(calculatorKey, 'error', '请修正标红字段后重新计算。');
+        setResultState(calculatorKey, 'error', t('msgValidationError'));
         focusAndScroll(validationResult.firstInvalidInput);
         return;
     }
@@ -377,6 +542,13 @@ document.querySelectorAll('input[type="number"]').forEach((input) => {
             runCalculator(calculatorKey);
         }
     });
+});
+
+// ── 语言切换按钮 ──
+
+document.getElementById('lang-toggle').addEventListener('click', () => {
+    currentLang = currentLang === 'zh' ? 'en' : 'zh';
+    translatePage();
 });
 
 activateTab('power');
