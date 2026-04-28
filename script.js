@@ -53,6 +53,7 @@ const I18N = {
         errNotNumber: (label) => `${label}必须为数字`,
         errPositive: (label) => `${label}必须大于 0`,
         errNonNegative: (label) => `${label}不能为负数`,
+        footerAriaLabel: '作者与单位信息',
         footerAuthor: '作者：Yufei Pan',
         footerAffiliation: '南京医科大学附属明基医院 · 耳鼻咽喉头颈外科',
         footerEmail: '邮箱：<a href="mailto:entpyf@163.com">entpyf@163.com</a>',
@@ -102,6 +103,7 @@ const I18N = {
         errNotNumber: (label) => `${label} must be a number`,
         errPositive: (label) => `${label} must be greater than 0`,
         errNonNegative: (label) => `${label} cannot be negative`,
+        footerAriaLabel: 'Author and affiliation',
         footerAuthor: 'Author: Yufei Pan',
         footerAffiliation: 'BenQ Medical Center, Nanjing Medical University · Dept. of Otolaryngology-HNS',
         footerEmail: 'Email: <a href="mailto:entpyf@163.com">entpyf@163.com</a>',
@@ -123,7 +125,7 @@ const I18N = {
     }
 };
 
-let currentLang = 'zh';
+let currentLang = 'en';
 
 function t(key) {
     return I18N[currentLang][key];
@@ -153,6 +155,11 @@ function translatePage() {
     const tablist = document.querySelector('[data-i18n-aria="tablistLabel"]');
     if (tablist) {
         tablist.setAttribute('aria-label', t('tablistLabel'));
+    }
+
+    const siteFooter = document.querySelector('.site-footer');
+    if (siteFooter) {
+        siteFooter.setAttribute('aria-label', t('footerAriaLabel'));
     }
 
     const toggleBtn = document.getElementById('lang-toggle');
@@ -552,3 +559,4 @@ document.getElementById('lang-toggle').addEventListener('click', () => {
 });
 
 activateTab('power');
+translatePage();

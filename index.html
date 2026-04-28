@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>光动力治疗计算器</title>
+    <title>PDT Calculator</title>
     <link rel="icon"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%232d5a5e'/%3E%3Cpath d='M7 12.5l3 3 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,8 +17,8 @@
 <body>
     <div class="container">
         <div class="lang-switch">
-            <span class="lang-hint" data-i18n="langHint">切换语言</span>
-            <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch to English">EN</button>
+            <span class="lang-hint" data-i18n="langHint">Switch Language</span>
+            <button class="lang-toggle" id="lang-toggle" type="button" aria-label="切换为中文">中文</button>
         </div>
 
         <header>
@@ -29,7 +29,7 @@
                 </svg>
             </div>
             <div class="header-text">
-                <h1 data-i18n="title">光动力治疗计算器</h1>
+                <h1 data-i18n="title">PDT Calculator</h1>
                 <p class="subtitle" data-i18n="subtitle">Photodynamic Therapy Calculator</p>
             </div>
         </header>
@@ -37,19 +37,19 @@
         <div class="card">
             <div class="tabs" role="tablist" data-i18n-aria="tablistLabel">
                 <button class="tab-btn active" id="power-trigger" data-tab="power" type="button" role="tab"
-                    aria-selected="true" aria-controls="power-tab" tabindex="0" data-i18n="tabPower">功率计算</button>
+                    aria-selected="true" aria-controls="power-tab" tabindex="0" data-i18n="tabPower">Power</button>
                 <button class="tab-btn" id="energy-trigger" data-tab="energy" type="button" role="tab"
-                    aria-selected="false" aria-controls="energy-tab" tabindex="-1" data-i18n="tabEnergy">能量密度</button>
+                    aria-selected="false" aria-controls="energy-tab" tabindex="-1" data-i18n="tabEnergy">Fluence</button>
                 <button class="tab-btn" id="radius-trigger" data-tab="radius" type="button" role="tab"
-                    aria-selected="false" aria-controls="radius-tab" tabindex="-1" data-i18n="tabRadius">儿童半径预测</button>
+                    aria-selected="false" aria-controls="radius-tab" tabindex="-1" data-i18n="tabRadius">Pediatric Radius</button>
             </div>
 
-            <!-- 功率计算 -->
+            <!-- Power -->
             <section class="tab-content active" id="power-tab" data-calculator="power" role="tabpanel"
                 aria-labelledby="power-trigger" tabindex="0">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="ed-power" data-i18n="labelEnergyDensity">能量密度</label>
+                        <label for="ed-power" data-i18n="labelEnergyDensity">Fluence</label>
                         <div class="input-wrapper">
                             <input type="number" id="ed-power" value="100" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="ed-power-message">
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="lg-power" data-i18n="labelFiberLength">光纤长度</label>
+                        <label for="lg-power" data-i18n="labelFiberLength">Fiber Length</label>
                         <div class="input-wrapper">
                             <input type="number" id="lg-power" value="3" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="lg-power-message">
@@ -69,17 +69,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="time-power" data-i18n="labelExposureTime">照射时间</label>
+                        <label for="time-power" data-i18n="labelExposureTime">Exposure Time</label>
                         <div class="input-wrapper">
                             <input type="number" id="time-power" value="1200" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="time-power-message">
-                            <span class="unit" data-i18n="unitSeconds">秒</span>
+                            <span class="unit" data-i18n="unitSeconds">s</span>
                         </div>
                         <p class="field-message" id="time-power-message" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="r-power" data-i18n="labelRadius">半径</label>
+                        <label for="r-power" data-i18n="labelRadius">Radius</label>
                         <div class="input-wrapper">
                             <input type="number" id="r-power" value="0.5" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="r-power-message">
@@ -89,21 +89,21 @@
                     </div>
                 </div>
 
-                <button class="calculate-btn" type="button" data-calc-target="power" data-i18n="btnCalcPower">计算功率</button>
+                <button class="calculate-btn" type="button" data-calc-target="power" data-i18n="btnCalcPower">Calculate Power</button>
 
                 <div class="result" id="power-result" data-state="normal" role="status" aria-live="polite"
                     aria-atomic="true" hidden>
-                    <p class="result-message" id="power-status" data-i18n="msgPowerResult">已根据当前输入计算输出功率与功率密度。</p>
+                    <p class="result-message" id="power-status" data-i18n="msgPowerResult">Optical power and irradiance calculated from the current inputs.</p>
                     <div class="result-body result-dual">
                         <div class="result-item">
-                            <div class="result-label" data-i18n="resultOutputPower">输出功率</div>
+                            <div class="result-label" data-i18n="resultOutputPower">Optical Power</div>
                             <div class="result-value">
                                 <span id="power-value">0</span>
                                 <span class="result-unit">mW</span>
                             </div>
                         </div>
                         <div class="result-item">
-                            <div class="result-label" data-i18n="resultPowerDensity">功率密度</div>
+                            <div class="result-label" data-i18n="resultPowerDensity">Irradiance</div>
                             <div class="result-value">
                                 <span id="power-density-value">0</span>
                                 <span class="result-unit">mW/cm²</span>
@@ -113,12 +113,12 @@
                 </div>
             </section>
 
-            <!-- 能量密度计算 -->
+            <!-- Fluence calculation -->
             <section class="tab-content" id="energy-tab" data-calculator="energy" role="tabpanel"
                 aria-labelledby="energy-trigger" tabindex="0" hidden>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="op-energy" data-i18n="resultOutputPower">输出功率</label>
+                        <label for="op-energy" data-i18n="resultOutputPower">Optical Power</label>
                         <div class="input-wrapper">
                             <input type="number" id="op-energy" value="500" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="op-energy-message">
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="lg-energy" data-i18n="labelFiberLength">光纤长度</label>
+                        <label for="lg-energy" data-i18n="labelFiberLength">Fiber Length</label>
                         <div class="input-wrapper">
                             <input type="number" id="lg-energy" value="3" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="lg-energy-message">
@@ -138,17 +138,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="time-energy" data-i18n="labelExposureTime">照射时间</label>
+                        <label for="time-energy" data-i18n="labelExposureTime">Exposure Time</label>
                         <div class="input-wrapper">
                             <input type="number" id="time-energy" value="1200" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="time-energy-message">
-                            <span class="unit" data-i18n="unitSeconds">秒</span>
+                            <span class="unit" data-i18n="unitSeconds">s</span>
                         </div>
                         <p class="field-message" id="time-energy-message" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="r-energy" data-i18n="labelRadius">半径</label>
+                        <label for="r-energy" data-i18n="labelRadius">Radius</label>
                         <div class="input-wrapper">
                             <input type="number" id="r-energy" value="0.5" min="0" step="any" inputmode="decimal"
                                 enterkeyhint="done" aria-describedby="r-energy-message">
@@ -158,14 +158,14 @@
                     </div>
                 </div>
 
-                <button class="calculate-btn" type="button" data-calc-target="energy" data-i18n="btnCalcEnergy">计算能量密度</button>
+                <button class="calculate-btn" type="button" data-calc-target="energy" data-i18n="btnCalcEnergy">Calculate Fluence</button>
 
                 <div class="result" id="energy-result" data-state="normal" role="status" aria-live="polite"
                     aria-atomic="true" hidden>
-                    <p class="result-message" id="energy-status" data-i18n="msgEnergyResult">已根据当前输入计算能量密度。</p>
+                    <p class="result-message" id="energy-status" data-i18n="msgEnergyResult">Fluence calculated from the current inputs.</p>
                     <div class="result-body">
                         <div class="result-item result-item-single">
-                            <div class="result-label" data-i18n="labelEnergyDensity">能量密度</div>
+                            <div class="result-label" data-i18n="labelEnergyDensity">Fluence</div>
                             <div class="result-value">
                                 <span id="energy-value">0</span>
                                 <span class="result-unit">J/cm²</span>
@@ -175,31 +175,31 @@
                 </div>
             </section>
 
-            <!-- 半径预测 -->
+            <!-- Radius prediction -->
             <section class="tab-content" id="radius-tab" data-calculator="radius" role="tabpanel"
                 aria-labelledby="radius-trigger" tabindex="0" hidden>
                 <div class="form-grid">
                     <div class="form-group full-width">
-                        <label for="age-radius" data-i18n="labelChildAge">儿童年龄（月龄）</label>
+                        <label for="age-radius" data-i18n="labelChildAge">Child Age (Months)</label>
                         <div class="input-wrapper">
                             <input type="number" id="age-radius" value="60" min="0" step="1" inputmode="numeric"
                                 enterkeyhint="done" aria-describedby="age-range-hint age-radius-message">
-                            <span class="unit" data-i18n="unitMonths">月</span>
+                            <span class="unit" data-i18n="unitMonths">mo</span>
                         </div>
                         <p class="field-message" id="age-radius-message" aria-live="polite"></p>
                     </div>
 
-                    <p class="hint" id="age-range-hint" data-i18n="hintAgeRange">儿童年龄模型适用范围为 3-164 月龄；超出范围时仍可计算，但结果仅供参考。</p>
+                    <p class="hint" id="age-range-hint" data-i18n="hintAgeRange">Model applicable for ages 3–164 months; results outside this range are extrapolated and for reference only.</p>
                 </div>
 
-                <button class="calculate-btn" type="button" data-calc-target="radius" data-i18n="btnPredictRadius">预测半径</button>
+                <button class="calculate-btn" type="button" data-calc-target="radius" data-i18n="btnPredictRadius">Predict Radius</button>
 
                 <div class="result" id="radius-result" data-state="normal" role="status" aria-live="polite"
                     aria-atomic="true" hidden>
-                    <p class="result-message" id="radius-status" data-i18n="msgRadiusResult">结果为预测照射半径，单位为 cm。</p>
+                    <p class="result-message" id="radius-status" data-i18n="msgRadiusResult">Predicted irradiation radius in cm.</p>
                     <div class="result-body">
                         <div class="result-item result-item-single">
-                            <div class="result-label" data-i18n="resultPredictedRadius">预测照射半径</div>
+                            <div class="result-label" data-i18n="resultPredictedRadius">Predicted Irradiation Radius</div>
                             <div class="result-value">
                                 <span id="radius-value">0</span>
                                 <span class="result-unit">cm</span>
@@ -210,10 +210,10 @@
             </section>
         </div>
 
-        <footer class="site-footer" aria-label="作者与单位信息">
-            <p class="footer-author" data-i18n="footerAuthor">作者：Yufei Pan</p>
-            <p class="footer-affiliation" data-i18n="footerAffiliation">南京医科大学附属明基医院 · 耳鼻咽喉头颈外科</p>
-            <p data-i18n="footerEmail">邮箱：<a href="mailto:entpyf@163.com">entpyf@163.com</a></p>
+        <footer class="site-footer" aria-label="Author and affiliation">
+            <p class="footer-author" data-i18n="footerAuthor">Author: Yufei Pan</p>
+            <p class="footer-affiliation" data-i18n="footerAffiliation">BenQ Medical Center, Nanjing Medical University · Dept. of Otolaryngology-HNS</p>
+            <p data-i18n="footerEmail">Email: <a href="mailto:entpyf@163.com">entpyf@163.com</a></p>
         </footer>
     </div>
 
